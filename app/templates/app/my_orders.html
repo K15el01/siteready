@@ -1,0 +1,44 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="news-title text-center mb-4">Мои заказы</h1>
+    <p class="text-center mb-4">Всего заказов: {{ order_count }}</p>
+    {% for order in orders %}
+    <div class="order-card mb-4">
+        <div class="card-header" onclick="toggleDetails(this)">
+            <h2 class="order-title">Ваша покупка</h2>
+            <p class="order-date"><i class="fas fa-calendar-alt"></i> Дата: {{ order.created_at }}</p>
+            <p class="order-total"><i class="fas fa-dollar-sign"></i> Общая стоимость: {{ order.total_price }}</p>
+        </div>
+        <div class="card-body" style="display: none;">
+            <ul class="order-items">
+                {% for item in order.orderitem_set.all %}
+                <li class="order-item">
+                    <span class="item-title">{{ item.product.title }}</span>
+                    <span class="item-quantity">- {{ item.quantity }} x {{ item.price }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="total-price mt-4 text-center">
+        <h3><strong>Общая стоимость всех заказов: {{ total_price }}</strong></h3>
+        <h3><strong>Благодарим вас за доверие!</strong></h3>
+    </div>
+</div>
+
+
+
+<script>
+    function toggleDetails(header) {
+        const cardBody = header.nextElementSibling;
+        if (cardBody.style.display === "none" || cardBody.style.display === "") {
+            cardBody.style.display = "block";
+        } else {
+            cardBody.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

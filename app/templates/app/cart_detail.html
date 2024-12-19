@@ -1,0 +1,32 @@
+{% extends "app/layout.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="news-title">Корзина</h1>
+    <div class="row">
+        {% for item in cart_items %}
+        <div class="col-md-4 mb-4">
+            <div class="product">
+               
+                <div class="card-body">
+                    <h2 class="news-title">{{ item.product.title }}</h2>
+                    <p class="card-text">Количество: {{ item.quantity }}</p>
+                    <p class="card-text">Цена: {{ item.product.price }}</p>
+
+                    <form action="{% url 'remove_from_cart' item.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="basket">
+        <h3>Общая стоимость: {{ total_price }}</h3>
+        <a href="{% url 'checkout' %}" class="btn btn-primary" {% if not cart_items or total_price <= 0 %}disabled{% endif %}>Оплатить </a>
+    </div>
+</div>
+{% endblock %}

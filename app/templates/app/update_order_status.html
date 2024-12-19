@@ -1,0 +1,13 @@
+<!-- update_order_status.html -->
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="news-title text-center mb-4">Изменить статус заказа №{{ order.id }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+</div>
+{% endblock %}

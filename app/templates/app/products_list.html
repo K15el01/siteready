@@ -1,0 +1,33 @@
+{% extends "app/layout.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="news-title">Меню</h1>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-4 videogame_card">
+            <div class="card h-100">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.title }}" style="object-fit: cover; height: 200px;">
+                {% else %}
+                <img src="{% static 'app/content/temp.jpg' %}" class="card-img-top img-fluid" alt="{{ product.title }}" style="object-fit: cover; height: 200px;">
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="news-title">{{ product.title }}</h2>
+                    <p class="card-text description-info">{{ product.description }}</p>
+                    <p class="card-text price-info">Цена: {{ product.price }}</p>
+                    {% if  user.is_authenticated %}
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Добавить в корзину</a>
+                {% endif %}
+                  {% if not user.is_authenticated %}
+                <a href="{% url 'registration'  %}" class="btn btn-primary">Зарегистрируйтесь </a>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

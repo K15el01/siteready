@@ -1,0 +1,20 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+{% load static %}
+
+<h2>{{ title }}.</h2>
+<h3>{{ message }}</h3>
+
+<p>наша компания возникла в 2024 году и спонсируется многими популярным брендами такими как Samsung Dexp  и т.д.</p>
+<div class="logosamsung">
+    <a href="/" class="navbar-brand">
+        <img src="{% static 'app/content/SamsungLogo.jpg' %}" alt="logo" class="logosamsung" />
+    </a>
+</div>
+<div class="logodexp">
+    <a href="/" class="navbar-brand">
+        <img src="{% static 'app/content/DexpLogo.jpg' %}" alt="logo" class="logodexp" />
+    </a>
+</div>
+{% endblock %}

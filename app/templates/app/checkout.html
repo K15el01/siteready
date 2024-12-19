@@ -1,0 +1,27 @@
+{% extends "app/layout.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="news-title">Оплата</h1>
+    <div class="row">
+        {% for item in cart_items %}
+        <div class="col-md-4 mb-4">
+            <div class="product">
+                <img src="{% static 'app/content/' %}{{ item.product.image }}" class="card-img-top img-fluid" alt="{{ item.product.title }}" style="object-fit: cover; height: 185px;">
+                <div class="card-body">
+                    <h2 class="news-title">{{ item.product.title }}</h2>
+                    <p class="card-text">Количество: {{ item.quantity }}</p>
+                    <p class="card-text">Цена: {{ item.product.price }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="basket">
+        <h3>Общая стоимость: {{ total_price }}</h3>
+        <a href="{% url 'checkout' %}" class="btn btn-primary">Оплатить</a>
+    </div>
+</div>
+{% endblock %}
